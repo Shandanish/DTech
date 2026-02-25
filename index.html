@@ -3,93 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Danish Software Hub</title>
+    <title>NEXUS 2050 - Digital Hub</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Tailwind CSS (via CDN for simplicity) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬇️</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+<body>
+    <!-- Cyberpunk Background -->
+    <div class="cyber-bg">
+        <div class="grid-lines"></div>
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+        <div class="scan-line"></div>
+    </div>
 
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-purple-600 to-indigo-700 p-6 text-center shadow-lg">
-        <h1 class="text-4xl font-bold mb-2">🚀 Ultimate Software Hub</h1>
-        <p class="text-indigo-200">Manage & share your tools with style!</p>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <span class="logo-text">NEXUS<span class="year">2050</span></span>
+            </a>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="gallery.html" class="nav-link">
+                    <i class="fas fa-images"></i>
+                    <span>Gallery</span>
+                </a>
+                <a href="videos.html" class="nav-link">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Videos</span>
+                </a>
+                <a href="documents.html" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Documents</span>
+                </a>
+                <a href="software.html" class="nav-link">
+                    <i class="fas fa-download"></i>
+                    <span>Software</span>
+                </a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <a href="admin.html" class="admin-btn">
+                    <i class="fas fa-user-shield"></i>
+                </a>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <button class="search-close" id="searchClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>Search Content</h2>
+            <div class="search-input-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Type to search...">
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="pulse"></span>
+                <span>LIVE UPDATES</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="glitch" data-text="NEXUS">NEXUS</span>
+                <span class="gradient-text">Digital Hub</span>
+            </h1>
+            <p class="hero-subtitle">
+                Your gateway to the future. Access images, videos, documents, 
+                and software from our premium collection.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-image"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="imageCount">0</span>
+                        <span class="stat-label">Images</span>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-video"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="videoCount">0</span>
+                        <span class="stat-label">Videos</span>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="docCount">0</span>
+                        <span class="stat-label">Documents</span>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="fas fa-code"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="softwareCount">0</span>
+                        <span class="stat-label">Software</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hologram">
+                <div class="hologram-ring ring-1"></div>
+                <div class="hologram-ring ring-2"></div>
+                <div class="hologram-ring ring-3"></div>
+                <div class="hologram-core">
+                    <i class="fas fa-cube"></i>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8">
+    <!-- Main Content -->
+    <main class="main-content">
         
-        <!-- ADMIN MANAGER SECTION (Visible only to you, the repo owner) -->
-        <section id="admin-section" class="mb-12 p-6 bg-gray-800 rounded-xl shadow-xl border border-indigo-500/30">
-            <h2 class="text-2xl font-bold mb-4 text-indigo-300 border-b border-indigo-500/30 pb-2">🔧 Admin Manager (Drag, Drop & Publish)</h2>
-            <p class="text-gray-400 text-sm mb-6">Use this section to add new software. Drag files, fill details, click Publish. GitHub Actions handles the rest!</p>
-
-            <!-- Drag & Drop Zone -->
-            <div id="drop-zone" class="border-2 border-dashed border-indigo-400 rounded-lg p-8 text-center mb-6 bg-gray-700/50 hover:bg-gray-700 transition cursor-pointer">
-                <p class="text-xl mb-2">📦 Drag & Drop Software Files Here (.zip, .exe, .dmg, etc.)</p>
-                <p class="text-gray-400 text-sm">or click to select files</p>
-                <input type="file" id="file-input" class="hidden" multiple accept=".zip,.exe,.dmg,.tar.gz,.pdf,.doc,.docx">
-                <div id="file-list" class="mt-4 text-left text-sm text-gray-300"></div>
-            </div>
-
-            <!-- Software Info Form -->
-            <form id="software-form" class="space-y-4 mb-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-indigo-200 mb-1">Software Name *</label>
-                        <input type="text" id="sw-name" required class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500">
+        <!-- Filter Bar -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-bar">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">
+                            <i class="fas fa-th"></i> All Posts
+                        </button>
+                        <button class="filter-tab" data-filter="image">
+                            <i class="fas fa-image"></i> Images
+                        </button>
+                        <button class="filter-tab" data-filter="video">
+                            <i class="fas fa-video"></i> Videos
+                        </button>
+                        <button class="filter-tab" data-filter="document">
+                            <i class="fas fa-file"></i> Docs
+                        </button>
+                        <button class="filter-tab" data-filter="software">
+                            <i class="fas fa-download"></i> Software
+                        </button>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-indigo-200 mb-1">Version *</label>
-                        <input type="text" id="sw-version" required class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500">
+                    <div class="filter-options">
+                        <select id="sortSelect" class="sort-select">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="popular">Most Popular</option>
+                        </select>
                     </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-indigo-200 mb-1">Short Description *</label>
-                    <textarea id="sw-desc" rows="2" required class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-indigo-200 mb-1">Image URL (Screenshot/Icon) - Optional</label>
-                    <input type="url" id="sw-image" placeholder="https://i.imgur.com/..." class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500">
-                    <p class="text-xs text-gray-500 mt-1">Upload to Imgur/ImgBB and paste URL here, or leave blank.</p>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-indigo-200 mb-1">Category (e.g., Utility, Game, DevTool)</label>
-                    <input type="text" id="sw-category" class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500">
-                </div>
-            </form>
-
-            <!-- Preview & Publish -->
-            <div class="flex flex-wrap gap-4">
-                <button type="button" id="preview-btn" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-semibold transition shadow-md">👁️ Preview Card</button>
-                <button type="button" id="publish-btn" class="px-6 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition shadow-md flex items-center">🚀 Publish to GitHub Release</button>
             </div>
-            <div id="preview-area" class="mt-6 p-4 bg-gray-700 rounded-lg border border-indigo-500/30 hidden"></div>
-            <div id="publish-status" class="mt-4 text-center"></div>
         </section>
 
-        <!-- PUBLIC DOWNLOAD SECTION (Dynamic, Auto-Updates) -->
-        <section id="public-section">
-            <h2 class="text-3xl font-bold mb-8 text-center text-indigo-300">⬇️ Available Downloads</h2>
-            <div id="loading-downloads" class="text-center py-12">
-                <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500 mb-4"></div>
-                <p class="text-gray-400">Loading latest software from GitHub Releases...</p>
+        <!-- Posts Grid -->
+        <section class="posts-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-icon"><i class="fas fa-bolt"></i></span>
+                        Latest Posts
+                    </h2>
+                    <p class="section-subtitle">Fresh content updated daily</p>
+                </div>
+
+                <div class="posts-grid" id="postsGrid">
+                    <!-- Posts will be loaded here by JavaScript -->
+                </div>
+
+                <div class="load-more-container">
+                    <button class="load-more-btn" id="loadMoreBtn">
+                        <span>Load More</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
             </div>
-            <div id="downloads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Download cards will be injected here by JavaScript -->
-            </div>
-            <div id="no-downloads" class="hidden text-center py-12 text-gray-500">
-                <p>No software releases found yet. Use the Admin Manager to publish!</p>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-icon"><i class="fas fa-folder"></i></span>
+                        Browse Categories
+                    </h2>
+                </div>
+                <div class="categories-grid">
+                    <a href="gallery.html" class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>Image Gallery</h3>
+                            <p>High-quality images and artwork</p>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                    <a href="videos.html" class="category-card">
+                        <div class="category-icon video">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>Video Content</h3>
+                            <p>Tutorials, demos, and more</p>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                    <a href="documents.html" class="category-card">
+                        <div class="category-icon docs">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>Documents</h3>
+                            <p>PDFs, slides, and documents</p>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                    <a href="software.html" class="category-card">
+                        <div class="category-icon software">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>Software</h3>
+                            <p>Apps, tools, and utilities</p>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-gray-800 p-6 text-center text-gray-400 text-sm border-t border-gray-700">
-        <p>© 2024 Ultimate Software Hub | Powered by <a href="https://github.com" target="_blank" class="text-indigo-400 hover:underline">GitHub Pages & Actions</a></p>
-        <p class="mt-1">Repo: <a id="repo-link" href="#" target="_blank" class="text-indigo-400 hover:underline">YOUR_REPO_URL</a></p>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-atom"></i>
+                        <span>NEXUS<span class="year">2050</span></span>
+                    </a>
+                    <p>The future of digital content delivery. Access everything you need in one place.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <a href="index.html">Home</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="videos.html">Videos</a>
+                    <a href="documents.html">Documents</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Downloads</h4>
+                    <a href="software.html">Software</a>
+                    <a href="#">Android Apps</a>
+                    <a href="#">Windows Apps</a>
+                    <a href="#">Tools</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Admin</h4>
+                    <a href="admin.html">Admin Panel</a>
+                    <a href="#">Add Post</a>
+                    <a href="#">Manage Content</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 NEXUS 2050. Built for the future. Hosted on GitHub Pages.</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- Post Preview Modal -->
+    <div class="modal" id="previewModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content" id="modalContent">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="modalBody">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="posts.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
