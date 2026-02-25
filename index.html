@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danish Tech - Digital Hub</title>
-    <meta name="description" content="Danish Tech Hub - Download premium software, apps, and tools for free.">
+    <meta name="description" content="Danish Tech Hub - Download premium software and watch tutorials for free.">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
@@ -16,7 +16,6 @@
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
         <div class="glow-orb orb-3"></div>
-        <div class="particles" id="particles"></div>
     </div>
 
     <!-- Navigation -->
@@ -41,13 +40,13 @@
                     <i class="fas fa-download"></i>
                     <span>Downloads</span>
                 </a>
+                <a href="#videos" class="nav-link">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Videos</span>
+                </a>
                 <a href="#about" class="nav-link">
                     <i class="fas fa-info-circle"></i>
                     <span>About</span>
-                </a>
-                <a href="#contact" class="nav-link">
-                    <i class="fas fa-envelope"></i>
-                    <span>Contact</span>
                 </a>
             </div>
 
@@ -67,24 +66,24 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="pulse-dot"></span>
-                <span>TRUSTED DOWNLOADS</span>
+                <span>TRUSTED PLATFORM</span>
             </div>
             <h1 class="hero-title">
                 <span class="glitch" data-text="DANISH">DANISH</span>
                 <span class="gradient-text">TECH HUB</span>
             </h1>
             <p class="hero-subtitle">
-                Your trusted source for premium software downloads. 
-                Safe, fast, and always free. Get the tools you need to succeed.
+                Your trusted source for premium software downloads and video tutorials. 
+                Safe, fast, and always free.
             </p>
             <div class="hero-buttons">
                 <a href="#downloads" class="btn btn-primary">
                     <i class="fas fa-download"></i>
-                    Browse Downloads
+                    Downloads
                 </a>
-                <a href="#about" class="btn btn-secondary">
+                <a href="#videos" class="btn btn-secondary">
                     <i class="fas fa-play"></i>
-                    Learn More
+                    Watch Videos
                 </a>
             </div>
             <div class="trust-badges">
@@ -97,8 +96,8 @@
                     <span>Fast Downloads</span>
                 </div>
                 <div class="trust-badge">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Verified Files</span>
+                    <i class="fas fa-play-circle"></i>
+                    <span>HD Videos</span>
                 </div>
             </div>
         </div>
@@ -114,20 +113,56 @@
         </div>
     </header>
 
-    <!-- Downloads Section -->
-    <section class="downloads-section" id="downloads">
+    <!-- Filter Tabs -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">
+                    <i class="fas fa-th"></i>
+                    All
+                </button>
+                <button class="filter-tab" data-filter="software">
+                    <i class="fas fa-download"></i>
+                    Software
+                </button>
+                <button class="filter-tab" data-filter="video">
+                    <i class="fas fa-play"></i>
+                    Videos
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section class="content-section" id="downloads">
         <div class="container">
             <div class="section-header">
                 <div class="section-badge">
                     <i class="fas fa-fire"></i>
                     <span>FEATURED</span>
                 </div>
-                <h2 class="section-title">Available Downloads</h2>
-                <p class="section-subtitle">Click to download instantly - 100% safe and verified</p>
+                <h2 class="section-title">Latest Content</h2>
+                <p class="section-subtitle">Software downloads and video tutorials - all in one place</p>
             </div>
 
-            <div class="downloads-grid" id="downloadsGrid">
+            <div class="content-grid" id="contentGrid">
                 <!-- Posts loaded from posts.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section class="videos-section" id="videos">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-play-circle" style="color: var(--neon-pink);"></i>
+                    Video Tutorials
+                </h2>
+                <p class="section-subtitle">Watch and learn with our video guides</p>
+            </div>
+            <div class="videos-grid" id="videosGrid">
+                <!-- Videos loaded from posts.js -->
             </div>
         </div>
     </section>
@@ -137,7 +172,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Why Choose Danish Tech?</h2>
-                <p class="section-subtitle">We provide the best download experience</p>
+                <p class="section-subtitle">We provide the best experience</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
@@ -145,46 +180,28 @@
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>Secure Downloads</h3>
-                    <p>All files are scanned and verified. Your safety is our priority.</p>
+                    <p>All files are scanned and verified for your safety.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon green">
                         <i class="fas fa-tachometer-alt"></i>
                     </div>
                     <h3>Fast Servers</h3>
-                    <p>High-speed download servers for quick and reliable transfers.</p>
+                    <p>High-speed downloads from reliable servers.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon pink">
-                        <i class="fas fa-sync-alt"></i>
+                        <i class="fas fa-video"></i>
                     </div>
-                    <h3>Regular Updates</h3>
-                    <p>We keep software updated with the latest versions.</p>
+                    <h3>HD Videos</h3>
+                    <p>Crystal clear video tutorials in high definition.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon orange">
                         <i class="fas fa-hand-holding-heart"></i>
                     </div>
                     <h3>Free Forever</h3>
-                    <p>No hidden fees or subscriptions. Everything is completely free.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <div class="contact-box">
-                <div class="contact-content">
-                    <h2>Need Help?</h2>
-                    <p>Have questions or need support? We're here to help!</p>
-                </div>
-                <div class="contact-buttons">
-                    <a href="mailto:contact@danishtech.com" class="btn btn-primary">
-                        <i class="fas fa-envelope"></i>
-                        Contact Us
-                    </a>
+                    <p>Everything is completely free, no hidden fees.</p>
                 </div>
             </div>
         </div>
@@ -199,10 +216,9 @@
                         <i class="fas fa-microchip"></i>
                         <span>DANISH TECH</span>
                     </a>
-                    <p>Danish Tech Hub - Your trusted source for premium software downloads.</p>
+                    <p>Danish Tech Hub - Your trusted source for downloads and tutorials.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="#"><i class="fab fa-telegram"></i></a>
                     </div>
@@ -211,15 +227,12 @@
                     <h4>Quick Links</h4>
                     <a href="#home">Home</a>
                     <a href="#downloads">Downloads</a>
+                    <a href="#videos">Videos</a>
                     <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
                 </div>
                 <div class="footer-links">
-                    <h4>Categories</h4>
-                    <a href="#">Software</a>
-                    <a href="#">Tools</a>
-                    <a href="#">Utilities</a>
-                    <a href="#">Apps</a>
+                    <h4>Admin</h4>
+                    <a href="admin.html">Admin Panel</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -230,7 +243,7 @@
 
     <!-- Download Modal -->
     <div class="download-modal" id="downloadModal">
-        <div class="modal-backdrop"></div>
+        <div class="modal-backdrop" onclick="closeDownloadModal()"></div>
         <div class="modal-box">
             <div class="modal-icon downloading">
                 <i class="fas fa-download"></i>
@@ -250,6 +263,25 @@
         </div>
     </div>
 
+    <!-- Video Player Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-backdrop" onclick="closeVideoModal()"></div>
+        <div class="video-container">
+            <button class="video-close-btn" onclick="closeVideoModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="video-header">
+                <h3 id="videoTitle">Video Title</h3>
+            </div>
+            <div class="video-wrapper" id="videoWrapper">
+                <!-- Video iframe/element will be inserted here -->
+            </div>
+            <div class="video-info">
+                <p id="videoDescription">Video description...</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Search Modal -->
     <div class="search-modal" id="searchModal">
         <div class="search-backdrop" onclick="closeSearch()"></div>
@@ -257,10 +289,10 @@
             <button class="search-close" onclick="closeSearch()">
                 <i class="fas fa-times"></i>
             </button>
-            <h2>Search Downloads</h2>
+            <h2>Search Content</h2>
             <div class="search-input-container">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Type to search...">
+                <input type="text" id="searchInput" placeholder="Search software, videos...">
             </div>
             <div class="search-results" id="searchResults"></div>
         </div>
