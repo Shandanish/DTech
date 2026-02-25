@@ -1,303 +1,193 @@
-// ===== DANISH TECH - MAIN JAVASCRIPT =====
+// ===== DANISH TECH HUB - MAIN JAVASCRIPT =====
 
+// Wait for DOM to load
 document.addEventListener('DOMContentLoaded', function() {
-    initApp();
+    console.log('DOM loaded');
+    
+    // Check if posts data exists
+    if (typeof postsData !== 'undefined') {
+        console.log('Posts found:', postsData.length);
+        loadAllContent();
+        loadVideosOnly();
+    } else {
+        console.error('postsData not found!');
+        showError();
+    }
 });
 
-function initApp() {
-    loadAllContent();
-    loadVideosSection();
-    initNavigation();
-    initSearch();
-    initFilters();
-    initScrollEffects();
-    
-    console.log('%c DANISH TECH HUB ', 'background: linear-gradient(90deg, #00f5ff, #bf00ff); color: #000; font-size: 20px; padding: 10px 20px; border-radius: 5px; font-weight: bold;');
-    console.log('✅ Website loaded successfully');
-}
-
 // ===== Load All Content =====
-function loadAllContent(filter = 'all') {
-    const grid = document.getElementById('contentGrid');
+function loadAllContent(filterType) {
+    var grid = document.getElementById('contentGrid');
     if (!grid) return;
     
-    let filteredPosts = postsData;
+    var posts = postsData;
     
-    if (filter !== 'all') {
-        filteredPosts = postsData.filter(post => post.type === filter);
+    // Filter if needed
+    if (filterType && filterType !== 'all') {
+        posts = postsData.filter(function(post) {
+            return post.type === filterType;
+        });
     }
     
+    // Clear grid
     grid.innerHTML = '';
     
-    if (filteredPosts.length === 0) {
-        grid.innerHTML = `
-            <div class="no-content">
-                <i class="fas fa-inbox"></i>
-                <h3>No content available</h3>
-                <p>Check back soon for new posts!</p>
-            </div>
-        `;
+    // Check if posts exist
+    if (posts.length === 0) {
+        grid.innerHTML = '<div class="no-content"><i class="fas fa-inbox"></i><h3>No content found</h3></div>';
         return;
     }
     
-    filteredPosts.forEach((post, index) => {
-        const card = createPostCard(post);
-        card.style.animationDelay = `${index * 0.1}s`;
-        grid.appendChild(card);
+    // Create cards
+    posts.forEach(function(post) {
+        var card = createCard(post);
+        grid.innerHTML += card;
     });
 }
 
-// ===== Load Videos Section =====
-function loadVideosSection() {
-    const grid = document.getElementById('videosGrid');
+// ===== Load Videos Only =====
+function loadVideosOnly() {
+    var grid = document.getElementById('videosGrid');
     if (!grid) return;
     
-    const videos = postsData.filter(post => post.type === 'video');
+    var videos = postsData.filter(function(post) {
+        return post.type === 'video';
+    });
     
+    // Hide section if no videos
+    var section = document.querySelector('.videos-section');
     if (videos.length === 0) {
-        document.querySelector('.videos-section').style.display = 'none';
+        if (section) section.style.display = 'none';
         return;
     }
     
+    // Show section
+    if (section) section.style.display = 'block';
+    
+    // Create video cards
     grid.innerHTML = '';
-    videos.forEach(video => {
-        const card = createPostCard(video);
-        grid.appendChild(card);
+    videos.forEach(function(post) {
+        var card = createCard(post);
+        grid.innerHTML += card;
     });
 }
 
-// ===== Create Post Card =====
-function createPostCard(post) {
-    const card = document.createElement('div');
-    card.className = post.type === 'video' ? 'post-card video-card' : 'post-card';
-    card.dataset.id = post.id;
-    card.dataset.type = post.type;
-    
+// ===== Create Card HTML =====
+function createCard(post) {
     if (post.type === 'video') {
-        card.innerHTML = createVideoCard(post);
+        return createVideoCardHTML(post);
     } else {
-        card.innerHTML = createSoftwareCard(post);
+        return createSoftwareCardHTML(post);
     }
-    
-    return card;
 }
 
-// ===== Create Software Card HTML =====
-function createSoftwareCard(post) {
-    const badgeHtml = post.badge ? `<span class="card-badge">${post.badge}</span>` : '';
+// ===== Software Card HTML =====
+function createSoftwareCardHTML(post) {
+    var badgeHTML = post.badge ? '<span class="card-badge">' + post.badge + '</span>' : '';
     
-    return `
-        <div class="card-image">
-            <img src="${post.image}" alt="${post.title}" loading="lazy">
-            ${badgeHtml}
-            <div class="card-type">
-                <i class="fas fa-laptop-code"></i>
-            </div>
-        </div>
-        <div class="card-content">
-            <h3 class="card-title">${post.title}</h3>
-            <p class="card-description">${post.description}</p>
-            <div class="card-meta">
-                <div class="meta-item">
-                    <i class="fas fa-hdd"></i>
-                    <span>${post.fileSize}</span>
-                </div>
-                <div class="meta-item">
-                    <i class="fas fa-desktop"></i>
-                    <span>${post.platform}</span>
-                </div>
-                <div class="meta-item">
-                    <i class="fas fa-download"></i>
-                    <span>${formatNumber(post.downloads)}</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="version-tag">v${post.version}</span>
-                <button class="download-btn" onclick="startDownload('${post.downloadUrl}', '${post.title}')">
-                    <i class="fas fa-download"></i>
-                    Download
-                </button>
-            </div>
-        </div>
-    `;
+    return '<div class="post-card" data-id="' + post.id + '">' +
+        '<div class="card-image">' +
+            '<img src="' + post.image + '" alt="' + post.title + '">' +
+            badgeHTML +
+            '<div class="card-type-icon"><i class="fas fa-download"></i></div>' +
+        '</div>' +
+        '<div class="card-content">' +
+            '<h3 class="card-title">' + post.title + '</h3>' +
+            '<p class="card-description">' + post.description + '</p>' +
+            '<div class="card-meta">' +
+                '<div class="meta-item"><i class="fas fa-hdd"></i><span>' + post.fileSize + '</span></div>' +
+                '<div class="meta-item"><i class="fas fa-desktop"></i><span>' + post.platform + '</span></div>' +
+                '<div class="meta-item"><i class="fas fa-download"></i><span>' + formatNumber(post.downloads) + '</span></div>' +
+            '</div>' +
+            '<div class="card-footer">' +
+                '<span class="version-tag">v' + post.version + '</span>' +
+                '<button class="download-btn" onclick="startDownload(\'' + post.downloadUrl + '\', \'' + post.title + '\')">' +
+                    '<i class="fas fa-download"></i> Download' +
+                '</button>' +
+            '</div>' +
+        '</div>' +
+    '</div>';
 }
 
-// ===== Create Video Card HTML =====
-function createVideoCard(post) {
-    const badgeHtml = post.badge ? `<span class="card-badge video-badge">${post.badge}</span>` : '';
+// ===== Video Card HTML =====
+function createVideoCardHTML(post) {
+    var badgeHTML = post.badge ? '<span class="card-badge video-badge">' + post.badge + '</span>' : '';
     
-    return `
-        <div class="card-image">
-            <img src="${post.image}" alt="${post.title}" loading="lazy">
-            ${badgeHtml}
-            <div class="card-type video">
-                <i class="fas fa-play"></i>
-            </div>
-            <div class="video-play-overlay" onclick="playVideo(${post.id})">
-                <div class="play-btn-large">
-                    <i class="fas fa-play"></i>
-                </div>
-            </div>
-            <span class="card-duration">
-                <i class="fas fa-clock"></i> ${post.duration}
-            </span>
-        </div>
-        <div class="card-content">
-            <h3 class="card-title">${post.title}</h3>
-            <p class="card-description">${post.description}</p>
-            <div class="card-meta">
-                <div class="meta-item video-meta">
-                    <i class="fas fa-clock"></i>
-                    <span>${post.duration}</span>
-                </div>
-                <div class="meta-item video-meta">
-                    <i class="fas fa-eye"></i>
-                    <span>${formatNumber(post.views)} views</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="category-tag">${post.category}</span>
-                <button class="watch-btn" onclick="playVideo(${post.id})">
-                    <i class="fas fa-play"></i>
-                    Watch Now
-                </button>
-            </div>
-        </div>
-    `;
+    return '<div class="post-card video-card" data-id="' + post.id + '">' +
+        '<div class="card-image">' +
+            '<img src="' + post.image + '" alt="' + post.title + '">' +
+            badgeHTML +
+            '<div class="card-type-icon video"><i class="fas fa-play"></i></div>' +
+            '<div class="video-overlay" onclick="playVideo(' + post.id + ')">' +
+                '<div class="play-btn-large"><i class="fas fa-play"></i></div>' +
+            '</div>' +
+            '<span class="card-duration"><i class="fas fa-clock"></i> ' + post.duration + '</span>' +
+        '</div>' +
+        '<div class="card-content">' +
+            '<h3 class="card-title">' + post.title + '</h3>' +
+            '<p class="card-description">' + post.description + '</p>' +
+            '<div class="card-meta">' +
+                '<div class="meta-item video-meta"><i class="fas fa-clock"></i><span>' + post.duration + '</span></div>' +
+                '<div class="meta-item video-meta"><i class="fas fa-eye"></i><span>' + formatNumber(post.views) + ' views</span></div>' +
+            '</div>' +
+            '<div class="card-footer">' +
+                '<span class="category-tag">' + post.category + '</span>' +
+                '<button class="watch-btn" onclick="playVideo(' + post.id + ')">' +
+                    '<i class="fas fa-play"></i> Watch' +
+                '</button>' +
+            '</div>' +
+        '</div>' +
+    '</div>';
 }
 
-// ===== Play Video =====
-function playVideo(postId) {
-    const post = postsData.find(p => p.id === postId);
-    if (!post || post.type !== 'video') return;
+// ===== Filter Posts =====
+function filterPosts(type) {
+    // Update active tab
+    var tabs = document.querySelectorAll('.filter-tab');
+    tabs.forEach(function(tab) {
+        tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
     
-    const modal = document.getElementById('videoModal');
-    const videoWrapper = document.getElementById('videoWrapper');
-    const videoTitle = document.getElementById('videoTitle');
-    const videoDescription = document.getElementById('videoDescription');
-    
-    videoTitle.textContent = post.title;
-    videoDescription.textContent = post.description;
-    
-    // Parse video URL and create embed
-    const embedUrl = getEmbedUrl(post.videoUrl);
-    
-    if (embedUrl.type === 'youtube' || embedUrl.type === 'vimeo') {
-        videoWrapper.innerHTML = `
-            <iframe 
-                src="${embedUrl.url}" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-        `;
-    } else if (embedUrl.type === 'direct') {
-        videoWrapper.innerHTML = `
-            <video controls autoplay>
-                <source src="${embedUrl.url}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        `;
-    }
-    
-    // Show modal
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-// ===== Get Embed URL =====
-function getEmbedUrl(url) {
-    // YouTube
-    if (url.includes('youtube.com') || url.includes('youtu.be')) {
-        let videoId = '';
-        
-        if (url.includes('youtube.com/watch')) {
-            const urlParams = new URLSearchParams(new URL(url).search);
-            videoId = urlParams.get('v');
-        } else if (url.includes('youtu.be/')) {
-            videoId = url.split('youtu.be/')[1].split('?')[0];
-        } else if (url.includes('youtube.com/embed/')) {
-            videoId = url.split('youtube.com/embed/')[1].split('?')[0];
-        }
-        
-        return {
-            type: 'youtube',
-            url: `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`
-        };
-    }
-    
-    // Vimeo
-    if (url.includes('vimeo.com')) {
-        const videoId = url.split('vimeo.com/')[1].split('?')[0];
-        return {
-            type: 'vimeo',
-            url: `https://player.vimeo.com/video/${videoId}?autoplay=1`
-        };
-    }
-    
-    // Direct video link (.mp4, .webm, etc.)
-    if (url.match(/\.(mp4|webm|ogg)$/i)) {
-        return {
-            type: 'direct',
-            url: url
-        };
-    }
-    
-    // Default: treat as direct link
-    return {
-        type: 'direct',
-        url: url
-    };
-}
-
-// ===== Close Video Modal =====
-function closeVideoModal() {
-    const modal = document.getElementById('videoModal');
-    const videoWrapper = document.getElementById('videoWrapper');
-    
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-    
-    // Stop video
-    videoWrapper.innerHTML = '';
+    // Load filtered content
+    loadAllContent(type);
 }
 
 // ===== Start Download =====
 function startDownload(url, title) {
-    const modal = document.getElementById('downloadModal');
-    const progressFill = document.getElementById('progressFill');
-    const progressText = document.getElementById('progressText');
-    const manualDownload = document.getElementById('manualDownload');
+    var modal = document.getElementById('downloadModal');
+    var progressFill = document.getElementById('progressFill');
+    var progressText = document.getElementById('progressText');
+    var manualDownload = document.getElementById('manualDownload');
     
+    // Set manual link
     manualDownload.href = url;
-    manualDownload.onclick = function(e) {
-        e.preventDefault();
-        window.open(url, '_blank');
-    };
     
+    // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    let progress = 0;
-    const messages = ['Preparing download...', 'Connecting to server...', 'Starting download...'];
-    
+    // Animate progress
+    var progress = 0;
     progressFill.style.width = '0%';
-    progressText.textContent = messages[0];
+    progressText.textContent = 'Preparing download...';
     
-    const progressInterval = setInterval(() => {
-        progress += 2;
-        progressFill.style.width = `${progress}%`;
+    var interval = setInterval(function() {
+        progress += 3;
+        progressFill.style.width = progress + '%';
         
-        if (progress >= 30 && progress < 60) {
-            progressText.textContent = messages[1];
-        } else if (progress >= 60) {
-            progressText.textContent = messages[2];
+        if (progress >= 30) {
+            progressText.textContent = 'Connecting to server...';
         }
-        
+        if (progress >= 60) {
+            progressText.textContent = 'Starting download...';
+        }
         if (progress >= 100) {
-            clearInterval(progressInterval);
+            clearInterval(interval);
             progressText.textContent = 'Download started! ✓';
             
-            setTimeout(() => {
+            // Open download link
+            setTimeout(function() {
                 window.open(url, '_blank');
             }, 500);
         }
@@ -306,9 +196,158 @@ function startDownload(url, title) {
 
 // ===== Close Download Modal =====
 function closeDownloadModal() {
-    const modal = document.getElementById('downloadModal');
+    var modal = document.getElementById('downloadModal');
     modal.classList.remove('active');
     document.body.style.overflow = '';
+}
+
+// ===== Play Video =====
+function playVideo(postId) {
+    var post = postsData.find(function(p) {
+        return p.id === postId;
+    });
+    
+    if (!post || post.type !== 'video') return;
+    
+    var modal = document.getElementById('videoModal');
+    var videoPlayer = document.getElementById('videoPlayer');
+    var videoTitle = document.getElementById('videoModalTitle');
+    var videoDesc = document.getElementById('videoModalDesc');
+    
+    // Set title and description
+    videoTitle.textContent = post.title;
+    videoDesc.textContent = post.description;
+    
+    // Get embed URL
+    var embedUrl = getYouTubeEmbedUrl(post.videoUrl);
+    
+    // Create iframe
+    videoPlayer.innerHTML = '<iframe src="' + embedUrl + '" allowfullscreen allow="autoplay"></iframe>';
+    
+    // Show modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// ===== Get YouTube Embed URL =====
+function getYouTubeEmbedUrl(url) {
+    var videoId = '';
+    
+    // YouTube watch URL
+    if (url.indexOf('youtube.com/watch') !== -1) {
+        var urlParams = new URL(url).searchParams;
+        videoId = urlParams.get('v');
+    }
+    // YouTube short URL
+    else if (url.indexOf('youtu.be/') !== -1) {
+        videoId = url.split('youtu.be/')[1].split('?')[0];
+    }
+    // Already embed URL
+    else if (url.indexOf('youtube.com/embed/') !== -1) {
+        return url + '?autoplay=1';
+    }
+    // Vimeo
+    else if (url.indexOf('vimeo.com') !== -1) {
+        videoId = url.split('vimeo.com/')[1].split('?')[0];
+        return 'https://player.vimeo.com/video/' + videoId + '?autoplay=1';
+    }
+    // Direct video
+    else {
+        return url;
+    }
+    
+    return 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+}
+
+// ===== Close Video Modal =====
+function closeVideoModal() {
+    var modal = document.getElementById('videoModal');
+    var videoPlayer = document.getElementById('videoPlayer');
+    
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Stop video
+    videoPlayer.innerHTML = '';
+}
+
+// ===== Search Functions =====
+function openSearch() {
+    var modal = document.getElementById('searchModal');
+    modal.classList.add('active');
+    document.getElementById('searchInput').focus();
+}
+
+function closeSearch() {
+    var modal = document.getElementById('searchModal');
+    modal.classList.remove('active');
+    document.getElementById('searchInput').value = '';
+    document.getElementById('searchResults').innerHTML = '';
+}
+
+function searchContent() {
+    var query = document.getElementById('searchInput').value.toLowerCase().trim();
+    var results = document.getElementById('searchResults');
+    
+    if (query.length < 2) {
+        results.innerHTML = '';
+        return;
+    }
+    
+    var found = postsData.filter(function(post) {
+        return post.title.toLowerCase().indexOf(query) !== -1 ||
+               post.description.toLowerCase().indexOf(query) !== -1;
+    });
+    
+    if (found.length === 0) {
+        results.innerHTML = '<div class="no-content"><p>No results found</p></div>';
+        return;
+    }
+    
+    var html = '';
+    found.forEach(function(post) {
+        html += '<div class="search-result-item" onclick="handleSearchClick(' + post.id + ')">' +
+            '<img src="' + post.image + '" alt="' + post.title + '">' +
+            '<div class="result-info">' +
+                '<h4>' + post.title + '</h4>' +
+                '<span class="result-type ' + post.type + '">' +
+                    '<i class="fas fa-' + (post.type === 'video' ? 'play' : 'download') + '"></i> ' +
+                    post.type +
+                '</span>' +
+            '</div>' +
+        '</div>';
+    });
+    
+    results.innerHTML = html;
+}
+
+function handleSearchClick(postId) {
+    var post = postsData.find(function(p) {
+        return p.id === postId;
+    });
+    
+    closeSearch();
+    
+    if (post.type === 'video') {
+        playVideo(postId);
+    } else {
+        startDownload(post.downloadUrl, post.title);
+    }
+}
+
+// ===== Toggle Menu =====
+function toggleMenu() {
+    var menu = document.getElementById('navMenu');
+    var toggle = document.getElementById('menuToggle');
+    
+    menu.classList.toggle('active');
+    
+    var icon = toggle.querySelector('i');
+    if (menu.classList.contains('active')) {
+        icon.className = 'fas fa-times';
+    } else {
+        icon.className = 'fas fa-bars';
+    }
 }
 
 // ===== Format Number =====
@@ -322,164 +361,22 @@ function formatNumber(num) {
     return num.toString();
 }
 
-// ===== Navigation =====
-function initNavigation() {
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = menuToggle.querySelector('i');
-            icon.className = navMenu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
-        });
+// ===== Show Error =====
+function showError() {
+    var grid = document.getElementById('contentGrid');
+    if (grid) {
+        grid.innerHTML = '<div class="no-content"><i class="fas fa-exclamation-triangle"></i><h3>Error loading content</h3><p>Please check if posts.js is loaded correctly</p></div>';
     }
-    
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navMenu) navMenu.classList.remove('active');
-            if (menuToggle) menuToggle.querySelector('i').className = 'fas fa-bars';
-        });
-    });
-}
-
-// ===== Filters =====
-function initFilters() {
-    const filterTabs = document.querySelectorAll('.filter-tab');
-    
-    filterTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            filterTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            
-            const filter = tab.dataset.filter;
-            loadAllContent(filter);
-        });
-    });
-}
-
-// ===== Search =====
-function initSearch() {
-    const searchBtn = document.getElementById('searchBtn');
-    const searchModal = document.getElementById('searchModal');
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    
-    if (searchBtn && searchModal) {
-        searchBtn.addEventListener('click', () => {
-            searchModal.classList.add('active');
-            setTimeout(() => searchInput.focus(), 100);
-        });
-    }
-    
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            
-            if (query.length < 2) {
-                searchResults.innerHTML = '';
-                return;
-            }
-            
-            const results = postsData.filter(post => 
-                post.title.toLowerCase().includes(query) || 
-                post.description.toLowerCase().includes(query) ||
-                post.category.toLowerCase().includes(query)
-            );
-            
-            displaySearchResults(results);
-        });
-    }
-}
-
-function displaySearchResults(results) {
-    const searchResults = document.getElementById('searchResults');
-    
-    if (results.length === 0) {
-        searchResults.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
-                <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 15px; opacity: 0.5;"></i>
-                <p>No results found</p>
-            </div>
-        `;
-        return;
-    }
-    
-    searchResults.innerHTML = results.map(post => `
-        <div class="search-result-item" onclick="handleSearchClick(${post.id})">
-            <img src="${post.image}" alt="${post.title}">
-            <div class="result-info">
-                <h4>${post.title}</h4>
-                <span class="result-type ${post.type}">
-                    <i class="fas ${post.type === 'video' ? 'fa-play' : 'fa-download'}"></i>
-                    ${post.type}
-                </span>
-            </div>
-        </div>
-    `).join('');
-}
-
-function handleSearchClick(postId) {
-    const post = postsData.find(p => p.id === postId);
-    closeSearch();
-    
-    if (post.type === 'video') {
-        playVideo(postId);
-    } else {
-        startDownload(post.downloadUrl, post.title);
-    }
-}
-
-function closeSearch() {
-    const searchModal = document.getElementById('searchModal');
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    
-    if (searchModal) searchModal.classList.remove('active');
-    if (searchInput) searchInput.value = '';
-    if (searchResults) searchResults.innerHTML = '';
-}
-
-// ===== Scroll Effects =====
-function initScrollEffects() {
-    window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        if (navbar) {
-            navbar.classList.toggle('scrolled', window.scrollY > 80);
-        }
-    });
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.post-card, .feature-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(40px)';
-        card.style.transition = 'all 0.6s ease';
-        observer.observe(card);
-    });
 }
 
 // ===== Keyboard Shortcuts =====
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeDownloadModal();
         closeVideoModal();
         closeSearch();
     }
-    
-    if (e.ctrlKey && e.key === 'k') {
-        e.preventDefault();
-        const searchModal = document.getElementById('searchModal');
-        if (searchModal) {
-            searchModal.classList.add('active');
-            document.getElementById('searchInput').focus();
-        }
-    }
 });
+
+// ===== Console Log =====
+console.log('%c DANISH TECH HUB ', 'background: linear-gradient(90deg, #00f5ff, #ff00e4); color: #000; font-size: 16px; padding: 8px 15px; border-radius: 5px; font-weight: bold;');
