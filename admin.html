@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - NEXUS 2050</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Admin Panel Styles - Futuristic 2050 Theme */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --neon-cyan: #00f5ff;
+            --neon-pink: #ff00e4;
+            --neon-purple: #bf00ff;
+            --neon-green: #00ff88;
+            --bg-dark: #000011;
+            --bg-card: rgba(0, 20, 40, 0.8);
+            --border-color: rgba(0, 245, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #8892b0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #000011, #0a0a2e);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+        
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: rgba(0, 0, 0, 0.5);
+            border-right: 1px solid var(--border-color);
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        
+        .admin-logo .icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .admin-logo span {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+        
+        .nav-section {
+            margin-bottom: 30px;
+        }
+        
+        .nav-section h4 {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            padding-left: 15px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(0, 245, 255, 0.1);
+            color: var(--text-primary);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            color: #000;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .admin-header h1 {
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .admin-header h1 i {
+            color: var(--neon-cyan);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-5px);
+        }
+        
+        .stat-card .icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card .icon.cyan { background: rgba(0, 245, 255, 0.2); color: var(--neon-cyan); }
+        .stat-card .icon.pink { background: rgba(255, 0, 228, 0.2); color: var(--neon-pink); }
+        .stat-card .icon.green { background: rgba(0, 255, 136, 0.2); color: var(--neon-green); }
+        .stat-card .icon.purple { background: rgba(191, 0, 255, 0.2); color: var(--neon-purple); }
+        
+        .stat-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card p {
+            color: var(--text-secondary);
+        }
+        
+        /* Form Section */
+        .form-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            padding: 35px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title i {
+            color: var(--neon-cyan);
+        }
+        
+        /* Type Selector */
+        .type-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .type-option {
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .type-option:hover {
+            border-color: var(--neon-cyan);
+        }
+        
+        .type-option.active {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 245, 255, 0.1);
+        }
+        
+        .type-option i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .type-option.image i { color: var(--neon-cyan); }
+        .type-option.video i { color: var(--neon-pink); }
+        .type-option.document i { color: #ff6600; }
+        .type-option.software i { color: var(--neon-green); }
+        
+        /* Drop Zone */
+        .drop-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .drop-zone:hover, .drop-zone.drag-over {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 245, 255, 0.05);
+        }
+        
+        .drop-zone i {
+            font-size: 3rem;
+            color: var(--neon-cyan);
+            margin-bottom: 15px;
+        }
+        
+        .drop-zone h3 {
+            margin-bottom: 10px;
+        }
+        
+        .drop-zone p {
+            color: var(--text-secondary);
+        }
+        
+        .preview-image {
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-group select option {
+            background: var(--bg-dark);
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        /* Code Output */
+        .code-output {
+            background: #0a0a1a;
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            position: relative;
+        }
+        
+        .code-output pre {
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .code-output code {
+            color: var(--neon-green);
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--neon-cyan);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .copy-btn:hover {
+            background: var(--neon-green);
+        }
+        
+        /* Instructions */
+        .instructions {
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .instructions ol {
+            padding-left: 25px;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+        
+        .instructions strong {
+            color: var(--neon-cyan);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                padding: 20px 10px;
+            }
+            
+            .sidebar .admin-logo span,
+            .sidebar .nav-section h4,
+            .sidebar .nav-item span {
+                display: none;
+            }
+            
+            .sidebar .nav-item {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .type-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .type-selector {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="admin-logo">
+                <div class="icon"><i class="fas fa-atom"></i></div>
+                <span>NEXUS 2050</span>
+            </a>
+            
+            <nav>
+                <div class="nav-section">
+                    <h4>Main</h4>
+                    <a href="#" class="nav-item active">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Add Post</span>
+                    </a>
+                    <a href="index.html" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span>View Site</span>
+                    </a>
+                </div>
+                
+                <div class="nav-section">
+                    <h4>Content</h4>
+                    <a href="gallery.html" class="nav-item">
+                        <i class="fas fa-images"></i>
+                        <span>Images</span>
+                    </a>
+                    <a href="videos.html" class="nav-item">
+                        <i class="fas fa-video"></i>
+                        <span>Videos</span>
+                    </a>
+                    <a href="documents.html" class="nav-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Documents</span>
+                    </a>
+                    <a href="software.html" class="nav-item">
+                        <i class="fas fa-download"></i>
+                        <span>Software</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="admin-header">
+                <h1><i class="fas fa-plus-circle"></i> Add New Post</h1>
+                <div class="header-actions">
+                    <a href="index.html" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> View Site
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Instructions -->
+            <div class="instructions">
+                <h3><i class="fas fa-info-circle"></i> How to Add Posts</h3>
+                <ol>
+                    <li>Upload your files to the <strong>uploads/</strong> folder on GitHub</li>
+                    <li>Fill in the form below with your post details</li>
+                    <li>Click <strong>"Generate Code"</strong> to create the post entry</li>
+                    <li>Copy the code and add it to <strong>posts.js</strong> file</li>
+                    <li>Commit changes to GitHub - Done! 🎉</li>
+                </ol>
+            </div>
+            
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon cyan"><i class="fas fa-images"></i></div>
+                    <h3 id="imageCount">0</h3>
+                    <p>Images</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon pink"><i class="fas fa-video"></i></div>
+                    <h3 id="videoCount">0</h3>
+                    <p>Videos</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon" style="background: rgba(255,102,0,0.2); color: #ff6600;"><i class="fas fa-file-alt"></i></div>
+                    <h3 id="docCount">0</h3>
+                    <p>Documents</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon green"><i class="fas fa-code"></i></div>
+                    <h3 id="softwareCount">0</h3>
+                    <p>Software</p>
+                </div>
+            </div>
+            
+            <!-- Add Post Form -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fas fa-edit"></i> Post Details
+                </h2>
+                
+                <!-- Post Type Selector -->
+                <div class="type-selector">
+                    <div class="type-option image active" data-type="image" onclick="selectType('image')">
+                        <i class="fas fa-image"></i>
+                        <span>Image</span>
+                    </div>
+                    <div class="type-option video" data-type="video" onclick="selectType('video')">
+                        <i class="fas fa-video"></i>
+                        <span>Video</span>
+                    </div>
+                    <div class="type-option document" data-type="document" onclick="selectType('document')">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Document</span>
+                    </div>
+                    <div class="type-option software" data-type="software" onclick="selectType('software')">
+                        <i class="fas fa-download"></i>
+                        <span>Software</span>
+                    </div>
+                </div>
+                
+                <!-- Image Drop Zone -->
+                <div class="drop-zone" id="dropZone">
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Drop thumbnail image here</h3>
+                    <p>or click to browse (for preview only)</p>
+                    <img id="previewImg" class="preview-image" style="display:none;">
+                </div>
+                
+                <form id="postForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label><i class="fas fa-heading"></i> Title *</label>
+                            <input type="text" id="postTitle" placeholder="Enter post title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar"></i> Date *</label>
+                            <input type="date" id="postDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-image"></i> Thumbnail URL *</label>
+                            <input type="text" id="postImage" placeholder="uploads/images/thumbnail.jpg">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-file"></i> Download File Path *</label>
+                            <input type="text" id="postFile" placeholder="uploads/images/file.jpg">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> Category</label>
+                            <input type="text" id="postCategory" placeholder="e.g., artwork, tutorial">
+                        </div>
+                        
+                        <!-- Dynamic Fields Container -->
+                        <div id="dynamicFields"></div>
+                        
+                        <div class="form-group full-width">
+                            <label><i class="fas fa-align-left"></i> Description *</label>
+                            <textarea id="postDescription" placeholder="Enter post description..." required></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                        <i class="fas fa-code"></i> Generate Code
+                    </button>
+                </form>
+                
+                <!-- Code Output -->
+                <div class="code-output" id="codeOutput" style="display: none;">
+                    <button class="copy-btn" onclick="copyCode()">
+                        <i class="fas fa-copy"></i> Copy Code
+                    </button>
+                    <h3 style="margin-bottom: 15px; color: var(--neon-cyan);">
+                        <i class="fas fa-check-circle"></i> Add this to posts.js:
+                    </h3>
+                    <pre><code id="generatedCode"></code></pre>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="posts.js"></script>
+    <script>
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            setTodayDate();
+        });
+        
+        let selectedType = 'image';
+        
+        // Update Stats
+        function updateStats() {
+            if (typeof postsData !== 'undefined') {
+                document.getElementById('imageCount').textContent = postsData.filter(p => p.type === 'image').length;
+                document.getElementById('videoCount').textContent = postsData.filter(p => p.type === 'video').length;
+                document.getElementById('docCount').textContent = postsData.filter(p => p.type === 'document').length;
+                document.getElementById('softwareCount').textContent = postsData.filter(p => p.type === 'software').length;
+            }
+        }
+        
+        // Set Today's Date
+        function setTodayDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('postDate').value = today;
+        }
+        
+        // Select Type
+        function selectType(type) {
+            selectedType = type;
+            
+            document.querySelectorAll('.type-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            document.querySelector(`.type-option[data-type="${type}"]`).classList.add('active');
+            
+            // Update dynamic fields
+            updateDynamicFields(type);
+            
+            // Update file path placeholder
+            const filePaths = {
+                image: 'uploads/images/',
+                video: 'uploads/videos/',
+                document: 'uploads/documents/',
+                software: 'uploads/software/'
+            };
+            document.getElementById('postFile').placeholder = filePaths[type] + 'filename.ext';
+            document.getElementById('postImage').placeholder = filePaths[type] + 'thumbnail.jpg';
+        }
+        
+        // Update Dynamic Fields
+        function updateDynamicFields(type) {
+            const container = document.getElementById('dynamicFields');
+            let html = '';
+            
+            switch(type) {
+                case 'video':
+                    html = `
+                        <div class="form-group">
+                            <label><i class="fab fa-youtube"></i> YouTube Embed URL</label>
+                            <input type="text" id="videoUrl" placeholder="https://www.youtube.com/embed/...">
+                        </div>
+                    `;
+                    break;
+                case 'document':
+                    html = `
+                        <div class="form-group">
+                            <label><i class="fas fa-hdd"></i> File Size</label>
+                            <input type="text" id="fileSize" placeholder="e.g., 2.5 MB">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-file"></i> File Type</label>
+                            <select id="fileType">
+                                <option value="PDF">PDF</option>
+                                <option value="DOCX">Word Document</option>
+                                <option value="PPTX">PowerPoint</option>
+                                <option value="XLSX">Excel</option>
+                                <option value="TXT">Text File</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'software':
+                    html = `
+                        <div class="form-group">
+                            <label><i class="fas fa-hdd"></i> File Size</label>
+                            <input type="text" id="fileSize" placeholder="e.g., 150 MB">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-desktop"></i> Platform</label>
+                            <select id="platform">
+                                <option value="Windows">Windows</option>
+                                <option value="Android">Android</option>
+                                <option value="MacOS">MacOS</option>
+                                <option value="Linux">Linux</option>
+                                <option value="iOS">iOS</option>
+                                <option value="Cross-Platform">Cross-Platform</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-code-branch"></i> Version</label>
+                            <input type="text" id="version" placeholder="e.g., 2.5.0">
+                        </div>
+                    `;
+                    break;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        // Drop Zone
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const previewImg = document.getElementById('previewImg');
+        
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('drag-over');
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            handleFile(e.dataTransfer.files[0]);
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            handleFile(e.target.files[0]);
+        });
+        
+        function handleFile(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Form Submit
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nextId = (typeof postsData !== 'undefined') ? postsData.length + 1 : 1;
+            
+            let postObject = {
+                id: nextId,
+                type: selectedType,
+                title: document.getElementById('postTitle').value,
+                description: document.getElementById('postDescription').value,
+                image: document.getElementById('postImage').value,
+                file: document.getElementById('postFile').value,
+                date: document.getElementById('postDate').value,
+                views: 0,
+                downloads: 0,
+                category: document.getElementById('postCategory').value || 'general'
+            };
+            
+            // Add type-specific fields
+            if (selectedType === 'video') {
+                const videoUrl = document.getElementById('videoUrl');
+                if (videoUrl) postObject.videoUrl = videoUrl.value;
+            }
+            
+            if (selectedType === 'document') {
+                const fileSize = document.getElementById('fileSize');
+                const fileType = document.getElementById('fileType');
+                if (fileSize) postObject.fileSize = fileSize.value;
+                if (fileType) postObject.fileType = fileType.value;
+            }
+            
+            if (selectedType === 'software') {
+                const fileSize = document.getElementById('fileSize');
+                const platform = document.getElementById('platform');
+                const version = document.getElementById('version');
+                if (fileSize) postObject.fileSize = fileSize.value;
+                if (platform) postObject.platform = platform.value;
+                if (version) postObject.version = version.value;
+            }
+            
+            // Generate code
+            const code = JSON.stringify(postObject, null, 4);
+            
+            document.getElementById('generatedCode').textContent = code + ',';
+            document.getElementById('codeOutput').style.display = 'block';
+            document.getElementById('codeOutput').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Copy Code
+        function copyCode() {
+            const code = document.getElementById('generatedCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copy Code';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
