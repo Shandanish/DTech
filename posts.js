@@ -7,7 +7,7 @@ const postsData = [
         type: "software",
         title: "Safe Exam Browser",
         description: "Safe Exam Browser is a secure browser environment for taking online exams. It prevents students from accessing unauthorized resources during exams and ensures exam integrity.",
-        image: "https://github.com/safeexambrowser",
+        image: "https://i0.wp.com/teltales.port.ac.uk/wp-content/uploads/2017/07/SEB.png?fit=676%2C451&ssl=1",
         downloadUrl: "https://www.mediafire.com/file/7rp602v8tl0m6lp/safe-exam-browser-3.10.1-installer.exe/file",
         version: "3.10.1",
         fileSize: "300 MB",
