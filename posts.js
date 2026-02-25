@@ -19,23 +19,7 @@ const postsData = [
         downloads: 15420,
         badge: "POPULAR"
     }
-      {
-        id: 2,
-        type: "video",
-        title: "How to Install Safe Exam Browser",
-        description: "Complete tutorial on how to download and install Safe Exam Browser on Windows. Step by step guide for beginners.",
-        image: "https://i0.wp.com/teltales.port.ac.uk/wp-content/uploads/2017/07/SEB.png?fit=676%2C451&ssl=1",
-        videoUrl: "https://www.youtube.com/watch?v=UgOizAhudsk",
-        // OR for Vimeo: "https://vimeo.com/123456789"
-        // OR for direct video: "https://example.com/video.mp4"
-        duration: "10:25",
-        category: "Tutorial",
-        date: "2024-01-16",
-        featured: true,
-        views: 5430,
-        badge: "NEW"
-    }
-    
+          
     // ===== VIDEO POST EXAMPLE =====
     // Uncomment and modify to add video posts:
     /*
