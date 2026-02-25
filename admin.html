@@ -8,25 +8,13 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        :root {
-            --neon-cyan: #00f5ff;
-            --neon-pink: #ff00e4;
-            --neon-green: #00ff88;
-            --bg-dark: #000814;
-            --bg-card: rgba(0, 20, 40, 0.7);
-            --border-color: rgba(0, 245, 255, 0.15);
-            --text-primary: #ffffff;
-            --text-secondary: #8892b0;
-        }
-        
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(135deg, #000814, #001025);
+            background: linear-gradient(135deg, #000814, #001030);
             min-height: 100vh;
-            color: var(--text-primary);
+            color: #fff;
         }
         
-        /* Login Screen */
         .login-screen {
             min-height: 100vh;
             display: flex;
@@ -36,112 +24,97 @@
         }
         
         .login-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            padding: 50px;
+            background: rgba(0, 20, 40, 0.8);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-radius: 25px;
+            padding: 45px;
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             text-align: center;
         }
         
         .login-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
-            border-radius: 25px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #00f5ff, #ff00e4);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 25px;
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
         
-        .login-box h1 { font-size: 1.8rem; margin-bottom: 10px; }
-        .login-box > p { color: var(--text-secondary); margin-bottom: 35px; }
+        .login-box h1 { margin-bottom: 8px; }
+        .login-box > p { color: #8892b0; margin-bottom: 30px; }
         
         .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 10px; color: var(--text-secondary); font-size: 0.9rem; }
+        .form-group label { display: block; margin-bottom: 8px; color: #8892b0; }
         
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 16px 20px;
+            padding: 14px 18px;
             background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            color: var(--text-primary);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-radius: 12px;
+            color: #fff;
             font-size: 1rem;
             outline: none;
-            transition: all 0.3s;
         }
         
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+            border-color: #00f5ff;
         }
         
-        .form-group textarea { min-height: 120px; resize: vertical; }
-        .form-group select option { background: var(--bg-dark); }
+        .form-group textarea { min-height: 100px; resize: vertical; }
         
-        .login-btn, .generate-btn {
+        .btn {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            padding: 16px;
+            background: linear-gradient(135deg, #00f5ff, #ff00e4);
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             color: #000;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
         }
         
-        .login-btn:hover, .generate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 245, 255, 0.4);
-        }
+        .btn:hover { transform: translateY(-2px); }
         
         .login-error {
             background: rgba(255, 0, 100, 0.2);
             border: 1px solid #ff0066;
             color: #ff6699;
-            padding: 15px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 10px;
             margin-bottom: 20px;
             display: none;
         }
-        
-        .login-error.show { display: block; animation: shake 0.5s; }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
-        }
+        .login-error.show { display: block; }
         
         .back-link {
             display: inline-block;
             margin-top: 25px;
-            color: var(--text-secondary);
+            color: #8892b0;
             text-decoration: none;
         }
-        .back-link:hover { color: var(--neon-cyan); }
+        .back-link:hover { color: #00f5ff; }
         
-        /* Admin Dashboard */
         .admin-dashboard { display: none; }
         .admin-dashboard.active { display: block; }
         
         .admin-header {
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border-color);
-            padding: 20px 30px;
+            background: rgba(0, 20, 40, 0.8);
+            padding: 18px 25px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
             flex-wrap: wrap;
             gap: 15px;
         }
@@ -149,101 +122,93 @@
         .admin-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.3rem;
+            gap: 10px;
+            font-size: 1.2rem;
             font-weight: 700;
         }
-        .admin-logo i { color: var(--neon-cyan); }
+        .admin-logo i { color: #00f5ff; }
         
-        .header-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+        .header-btns { display: flex; gap: 12px; }
         
-        .btn {
-            display: inline-flex;
+        .header-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
         }
         
         .btn-view {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            color: #00f5ff;
         }
-        .btn-view:hover { border-color: var(--neon-cyan); }
         
         .btn-logout {
             background: rgba(255, 0, 100, 0.2);
             border: 1px solid #ff0066;
             color: #ff6699;
         }
-        .btn-logout:hover { background: #ff0066; color: white; }
         
         .admin-content {
-            max-width: 900px;
+            max-width: 850px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 35px 20px;
         }
         
-        .admin-title { font-size: 2rem; margin-bottom: 10px; }
-        .admin-subtitle { color: var(--text-secondary); margin-bottom: 40px; }
+        .admin-title { font-size: 1.8rem; margin-bottom: 8px; }
+        .admin-subtitle { color: #8892b0; margin-bottom: 30px; }
         
-        /* Type Selector */
         .type-selector {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 35px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
         }
         
         .type-option {
-            padding: 30px;
+            padding: 25px;
             background: rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--border-color);
-            border-radius: 20px;
+            border: 2px solid rgba(0, 245, 255, 0.2);
+            border-radius: 18px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
         }
         
-        .type-option:hover { border-color: var(--neon-cyan); }
-        .type-option.active { border-color: var(--neon-cyan); background: rgba(0, 245, 255, 0.1); }
-        .type-option.active.video { border-color: var(--neon-pink); background: rgba(255, 0, 228, 0.1); }
+        .type-option:hover { border-color: #00f5ff; }
+        .type-option.active { border-color: #00f5ff; background: rgba(0, 245, 255, 0.1); }
+        .type-option.active.video { border-color: #ff00e4; background: rgba(255, 0, 228, 0.1); }
         
-        .type-option i { font-size: 2.5rem; margin-bottom: 15px; display: block; }
-        .type-option.software i { color: var(--neon-cyan); }
-        .type-option.video i { color: var(--neon-pink); }
-        .type-option h3 { margin-bottom: 5px; }
-        .type-option p { color: var(--text-secondary); font-size: 0.9rem; }
+        .type-option i { font-size: 2rem; margin-bottom: 12px; display: block; }
+        .type-option.software i { color: #00f5ff; }
+        .type-option.video i { color: #ff00e4; }
         
-        /* Form Section */
         .form-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 25px;
-            padding: 40px;
-            margin-bottom: 30px;
+            background: rgba(0, 20, 40, 0.8);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-radius: 22px;
+            padding: 35px;
         }
         
         .form-title {
-            font-size: 1.4rem;
-            margin-bottom: 30px;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
-        .form-title i { color: var(--neon-cyan); }
-        .form-title.video i { color: var(--neon-pink); }
+        .form-title i { color: #00f5ff; }
+        .form-title.video i { color: #ff00e4; }
         
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
         }
         
         .full-width { grid-column: 1 / -1; }
@@ -251,381 +216,340 @@
         .software-fields, .video-fields { display: none; }
         .software-fields.active, .video-fields.active { display: contents; }
         
-        /* Code Output */
         .code-output {
-            background: #0a0a15;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 30px;
+            background: #050510;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-radius: 15px;
+            padding: 22px;
+            margin-top: 25px;
             position: relative;
             display: none;
         }
         .code-output.show { display: block; }
         
         .code-output h3 {
-            color: var(--neon-green);
-            margin-bottom: 20px;
+            color: #00ff88;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .code-output pre {
-            background: #050510;
-            padding: 20px;
-            border-radius: 12px;
+            background: #000;
+            padding: 18px;
+            border-radius: 10px;
             overflow-x: auto;
         }
         
         .code-output code {
-            color: var(--neon-green);
-            font-family: 'Consolas', monospace;
+            color: #00ff88;
+            font-family: Consolas, monospace;
             font-size: 0.85rem;
-            line-height: 1.6;
             white-space: pre-wrap;
         }
         
         .copy-btn {
             position: absolute;
-            top: 25px;
-            right: 25px;
-            background: var(--neon-cyan);
+            top: 22px;
+            right: 22px;
+            background: #00f5ff;
             color: #000;
             border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .copy-btn:hover { background: var(--neon-green); }
-        
-        /* Instructions */
-        .instructions {
-            background: rgba(0, 245, 255, 0.1);
-            border: 1px solid var(--neon-cyan);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 35px;
         }
         
-        .instructions h3 { margin-bottom: 15px; color: var(--neon-cyan); }
-        .instructions ol { padding-left: 25px; line-height: 2; color: var(--text-secondary); }
-        .instructions code { background: rgba(0,0,0,0.4); padding: 2px 8px; border-radius: 5px; color: var(--neon-green); }
-        
-        /* Responsive */
         @media (max-width: 600px) {
-            .login-box, .form-section { padding: 30px 20px; }
-            .admin-header { flex-direction: column; text-align: center; }
-            .type-selector { grid-template-columns: 1fr; }
+            .type-selector, .form-grid { grid-template-columns: 1fr; }
+            .form-section { padding: 25px 18px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- LOGIN SCREEN -->
-    <div class="login-screen" id="loginScreen">
-        <div class="login-box">
-            <div class="login-logo"><i class="fas fa-shield-alt"></i></div>
-            <h1>Admin Access</h1>
-            <p>Enter your credentials to continue</p>
-            
-            <div class="login-error" id="loginError">
-                <i class="fas fa-exclamation-circle"></i> Incorrect credentials
-            </div>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label><i class="fas fa-user"></i> Username</label>
-                    <input type="text" id="username" placeholder="Enter username" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" id="password" placeholder="Enter password" required>
-                </div>
-                <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-            </form>
-            
-            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Website</a>
-        </div>
-    </div>
-
-    <!-- ADMIN DASHBOARD -->
-    <div class="admin-dashboard" id="adminDashboard">
-        <header class="admin-header">
-            <div class="admin-logo">
-                <i class="fas fa-microchip"></i>
-                <span>Danish Tech Admin</span>
-            </div>
-            <div class="header-buttons">
-                <a href="index.html" class="btn btn-view"><i class="fas fa-external-link-alt"></i> View Site</a>
-                <button class="btn btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-            </div>
-        </header>
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-box">
+        <div class="login-logo"><i class="fas fa-shield-alt"></i></div>
+        <h1>Admin Panel</h1>
+        <p>Enter your credentials</p>
         
-        <div class="admin-content">
-            <h1 class="admin-title">Add New Post</h1>
-            <p class="admin-subtitle">Create software downloads or video posts</p>
-            
-            <!-- Instructions -->
-            <div class="instructions">
-                <h3><i class="fas fa-info-circle"></i> How to Add Posts</h3>
-                <ol>
-                    <li>Select post type: <strong>Software</strong> or <strong>Video</strong></li>
-                    <li>Fill in all the details</li>
-                    <li>Click <strong>Generate Code</strong></li>
-                    <li>Copy the code</li>
-                    <li>Edit <code>posts.js</code> on GitHub</li>
-                    <li>Add comma after last post, paste your code</li>
-                    <li>Commit changes - Done! 🎉</li>
-                </ol>
+        <div class="login-error" id="loginError">
+            <i class="fas fa-exclamation-circle"></i> Incorrect credentials
+        </div>
+        
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" required>
             </div>
-            
-            <!-- Type Selector -->
-            <div class="type-selector">
-                <div class="type-option software active" onclick="selectType('software')">
-                    <i class="fas fa-download"></i>
-                    <h3>Software</h3>
-                    <p>Downloadable files, apps, tools</p>
-                </div>
-                <div class="type-option video" onclick="selectType('video')">
-                    <i class="fas fa-play-circle"></i>
-                    <h3>Video</h3>
-                    <p>YouTube, Vimeo, direct videos</p>
-                </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" required>
             </div>
+            <button type="submit" class="btn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </form>
+        
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Website</a>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="admin-dashboard" id="adminDashboard">
+    <header class="admin-header">
+        <div class="admin-logo">
+            <i class="fas fa-microchip"></i>
+            <span>Danish Tech Admin</span>
+        </div>
+        <div class="header-btns">
+            <a href="index.html" class="header-btn btn-view"><i class="fas fa-external-link-alt"></i> View Site</a>
+            <button class="header-btn btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </header>
+    
+    <div class="admin-content">
+        <h1 class="admin-title">Add New Post</h1>
+        <p class="admin-subtitle">Create software or video posts</p>
+        
+        <!-- Type Selector -->
+        <div class="type-selector">
+            <div class="type-option software active" onclick="selectType('software')">
+                <i class="fas fa-download"></i>
+                <h3>Software</h3>
+                <p>Downloads</p>
+            </div>
+            <div class="type-option video" onclick="selectType('video')">
+                <i class="fas fa-play-circle"></i>
+                <h3>Video</h3>
+                <p>YouTube/Vimeo</p>
+            </div>
+        </div>
+        
+        <!-- Form -->
+        <div class="form-section">
+            <h2 class="form-title" id="formTitle">
+                <i class="fas fa-download"></i> Software Details
+            </h2>
             
-            <!-- Form -->
-            <div class="form-section">
-                <h2 class="form-title" id="formTitle">
-                    <i class="fas fa-download"></i> Software Details
-                </h2>
-                
-                <form id="postForm">
-                    <div class="form-grid">
-                        <!-- Common Fields -->
+            <form id="postForm" onsubmit="return generateCode(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" id="postTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <input type="text" id="postCategory" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Thumbnail Image URL *</label>
+                        <input type="url" id="postImage" required>
+                    </div>
+                    
+                    <!-- Software Fields -->
+                    <div class="software-fields active">
                         <div class="form-group">
-                            <label>Title *</label>
-                            <input type="text" id="postTitle" placeholder="Enter title" required>
+                            <label>Version *</label>
+                            <input type="text" id="postVersion">
                         </div>
                         <div class="form-group">
-                            <label>Category *</label>
-                            <input type="text" id="postCategory" placeholder="e.g., Education, Tutorial" required>
+                            <label>File Size *</label>
+                            <input type="text" id="postSize">
+                        </div>
+                        <div class="form-group">
+                            <label>Platform</label>
+                            <select id="postPlatform">
+                                <option value="Windows">Windows</option>
+                                <option value="Android">Android</option>
+                                <option value="MacOS">MacOS</option>
+                                <option value="Linux">Linux</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Badge</label>
+                            <select id="postBadge">
+                                <option value="">None</option>
+                                <option value="NEW">NEW</option>
+                                <option value="POPULAR">POPULAR</option>
+                                <option value="HOT">HOT</option>
+                            </select>
                         </div>
                         <div class="form-group full-width">
-                            <label>Thumbnail Image URL *</label>
-                            <input type="url" id="postImage" placeholder="https://images.unsplash.com/..." required>
-                        </div>
-                        
-                        <!-- Software Fields -->
-                        <div class="software-fields active">
-                            <div class="form-group">
-                                <label>Version *</label>
-                                <input type="text" id="postVersion" placeholder="e.g., 3.10.1">
-                            </div>
-                            <div class="form-group">
-                                <label>File Size *</label>
-                                <input type="text" id="postSize" placeholder="e.g., 85 MB">
-                            </div>
-                            <div class="form-group">
-                                <label>Platform *</label>
-                                <select id="postPlatform">
-                                    <option value="Windows">Windows</option>
-                                    <option value="Android">Android</option>
-                                    <option value="MacOS">MacOS</option>
-                                    <option value="Linux">Linux</option>
-                                    <option value="iOS">iOS</option>
-                                    <option value="All Platforms">All Platforms</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Badge</label>
-                                <select id="postBadge">
-                                    <option value="">None</option>
-                                    <option value="NEW">NEW</option>
-                                    <option value="POPULAR">POPULAR</option>
-                                    <option value="HOT">HOT</option>
-                                </select>
-                            </div>
-                            <div class="form-group full-width">
-                                <label>Download URL (MediaFire, Google Drive, etc.) *</label>
-                                <input type="url" id="postDownloadUrl" placeholder="https://www.mediafire.com/file/...">
-                            </div>
-                        </div>
-                        
-                        <!-- Video Fields -->
-                        <div class="video-fields">
-                            <div class="form-group">
-                                <label>Duration *</label>
-                                <input type="text" id="postDuration" placeholder="e.g., 10:25">
-                            </div>
-                            <div class="form-group">
-                                <label>Badge</label>
-                                <select id="videoBadge">
-                                    <option value="">None</option>
-                                    <option value="NEW">NEW</option>
-                                    <option value="POPULAR">POPULAR</option>
-                                    <option value="HOT">HOT</option>
-                                </select>
-                            </div>
-                            <div class="form-group full-width">
-                                <label>Video URL (YouTube, Vimeo, or Direct Link) *</label>
-                                <input type="url" id="postVideoUrl" placeholder="https://www.youtube.com/watch?v=...">
-                                <small style="color: var(--text-secondary); display: block; margin-top: 8px;">
-                                    Supports: YouTube, Vimeo, or direct .mp4 links
-                                </small>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label>Description *</label>
-                            <textarea id="postDescription" placeholder="Enter description..." required></textarea>
+                            <label>Download URL *</label>
+                            <input type="url" id="postDownloadUrl">
                         </div>
                     </div>
                     
-                    <button type="submit" class="generate-btn">
-                        <i class="fas fa-code"></i> Generate Code
-                    </button>
-                </form>
-                
-                <!-- Code Output -->
-                <div class="code-output" id="codeOutput">
-                    <button class="copy-btn" onclick="copyCode()"><i class="fas fa-copy"></i> Copy</button>
-                    <h3><i class="fas fa-check-circle"></i> Add this to posts.js:</h3>
-                    <pre><code id="generatedCode"></code></pre>
+                    <!-- Video Fields -->
+                    <div class="video-fields">
+                        <div class="form-group">
+                            <label>Duration *</label>
+                            <input type="text" id="postDuration" placeholder="10:25">
+                        </div>
+                        <div class="form-group">
+                            <label>Badge</label>
+                            <select id="videoBadge">
+                                <option value="">None</option>
+                                <option value="NEW">NEW</option>
+                                <option value="POPULAR">POPULAR</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>YouTube/Vimeo URL *</label>
+                            <input type="url" id="postVideoUrl" placeholder="https://www.youtube.com/watch?v=...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Description *</label>
+                        <textarea id="postDescription" required></textarea>
+                    </div>
                 </div>
+                
+                <button type="submit" class="btn" style="margin-top: 20px;">
+                    <i class="fas fa-code"></i> Generate Code
+                </button>
+            </form>
+            
+            <!-- Code Output -->
+            <div class="code-output" id="codeOutput">
+                <button class="copy-btn" onclick="copyCode()"><i class="fas fa-copy"></i> Copy</button>
+                <h3><i class="fas fa-check-circle"></i> Add this to posts.js:</h3>
+                <pre><code id="generatedCode"></code></pre>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="posts.js"></script>
-    <script>
-        // ===== CHANGE YOUR CREDENTIALS HERE =====
-        const ADMIN_USERNAME = "danish";
-        const ADMIN_PASSWORD = "danish2024";
-        // =========================================
+<script>
+    // ===== CREDENTIALS =====
+    var ADMIN_USER = "danish";
+    var ADMIN_PASS = "danish2024";
+    // ========================
+    
+    var selectedType = 'software';
+    
+    // Check login
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        showDashboard();
+    }
+    
+    function handleLogin(e) {
+        e.preventDefault();
+        var user = document.getElementById('username').value;
+        var pass = document.getElementById('password').value;
         
-        let selectedType = 'software';
-        
-        // Check login
-        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        if (user === ADMIN_USER && pass === ADMIN_PASS) {
+            sessionStorage.setItem('adminLoggedIn', 'true');
             showDashboard();
+        } else {
+            document.getElementById('loginError').classList.add('show');
+            setTimeout(function() {
+                document.getElementById('loginError').classList.remove('show');
+            }, 3000);
         }
+        return false;
+    }
+    
+    function showDashboard() {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminDashboard').classList.add('active');
+    }
+    
+    function logout() {
+        sessionStorage.removeItem('adminLoggedIn');
+        location.reload();
+    }
+    
+    function selectType(type) {
+        selectedType = type;
         
-        // Login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                showDashboard();
-            } else {
-                document.getElementById('loginError').classList.add('show');
-                setTimeout(() => document.getElementById('loginError').classList.remove('show'), 3000);
-            }
+        document.querySelectorAll('.type-option').forEach(function(opt) {
+            opt.classList.remove('active');
         });
+        document.querySelector('.type-option.' + type).classList.add('active');
         
-        function showDashboard() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('adminDashboard').classList.add('active');
+        var title = document.getElementById('formTitle');
+        var softwareFields = document.querySelector('.software-fields');
+        var videoFields = document.querySelector('.video-fields');
+        
+        if (type === 'software') {
+            title.innerHTML = '<i class="fas fa-download"></i> Software Details';
+            title.classList.remove('video');
+            softwareFields.classList.add('active');
+            videoFields.classList.remove('active');
+        } else {
+            title.innerHTML = '<i class="fas fa-play-circle"></i> Video Details';
+            title.classList.add('video');
+            softwareFields.classList.remove('active');
+            videoFields.classList.add('active');
+        }
+    }
+    
+    function generateCode(e) {
+        e.preventDefault();
+        
+        var today = new Date().toISOString().split('T')[0];
+        var post;
+        
+        if (selectedType === 'software') {
+            post = {
+                id: Date.now(),
+                type: "software",
+                title: document.getElementById('postTitle').value,
+                description: document.getElementById('postDescription').value,
+                image: document.getElementById('postImage').value,
+                downloadUrl: document.getElementById('postDownloadUrl').value,
+                version: document.getElementById('postVersion').value,
+                fileSize: document.getElementById('postSize').value,
+                platform: document.getElementById('postPlatform').value,
+                category: document.getElementById('postCategory').value,
+                date: today,
+                featured: true,
+                downloads: 0,
+                badge: document.getElementById('postBadge').value
+            };
+        } else {
+            post = {
+                id: Date.now(),
+                type: "video",
+                title: document.getElementById('postTitle').value,
+                description: document.getElementById('postDescription').value,
+                image: document.getElementById('postImage').value,
+                videoUrl: document.getElementById('postVideoUrl').value,
+                duration: document.getElementById('postDuration').value,
+                category: document.getElementById('postCategory').value,
+                date: today,
+                featured: true,
+                views: 0,
+                badge: document.getElementById('videoBadge').value
+            };
         }
         
-        function logout() {
-            sessionStorage.removeItem('adminLoggedIn');
-            location.reload();
-        }
+        var code = ',\n    ' + JSON.stringify(post, null, 4);
         
-        // Type Selection
-        function selectType(type) {
-            selectedType = type;
-            
-            document.querySelectorAll('.type-option').forEach(opt => opt.classList.remove('active'));
-            document.querySelector(`.type-option.${type}`).classList.add('active');
-            
-            const formTitle = document.getElementById('formTitle');
-            const softwareFields = document.querySelector('.software-fields');
-            const videoFields = document.querySelector('.video-fields');
-            
-            if (type === 'software') {
-                formTitle.innerHTML = '<i class="fas fa-download"></i> Software Details';
-                formTitle.classList.remove('video');
-                softwareFields.classList.add('active');
-                videoFields.classList.remove('active');
-            } else {
-                formTitle.innerHTML = '<i class="fas fa-play-circle"></i> Video Details';
-                formTitle.classList.add('video');
-                softwareFields.classList.remove('active');
-                videoFields.classList.add('active');
-            }
-        }
+        document.getElementById('generatedCode').textContent = code;
+        document.getElementById('codeOutput').classList.add('show');
+        document.getElementById('codeOutput').scrollIntoView({ behavior: 'smooth' });
         
-        // Generate Code
-        document.getElementById('postForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const nextId = (typeof postsData !== 'undefined') ? postsData.length + 1 : 1;
-            const today = new Date().toISOString().split('T')[0];
-            
-            let post;
-            
-            if (selectedType === 'software') {
-                post = {
-                    id: nextId,
-                    type: "software",
-                    title: document.getElementById('postTitle').value,
-                    description: document.getElementById('postDescription').value,
-                    image: document.getElementById('postImage').value,
-                    downloadUrl: document.getElementById('postDownloadUrl').value,
-                    version: document.getElementById('postVersion').value,
-                    fileSize: document.getElementById('postSize').value,
-                    platform: document.getElementById('postPlatform').value,
-                    category: document.getElementById('postCategory').value,
-                    date: today,
-                    featured: true,
-                    downloads: 0,
-                    badge: document.getElementById('postBadge').value
-                };
-            } else {
-                post = {
-                    id: nextId,
-                    type: "video",
-                    title: document.getElementById('postTitle').value,
-                    description: document.getElementById('postDescription').value,
-                    image: document.getElementById('postImage').value,
-                    videoUrl: document.getElementById('postVideoUrl').value,
-                    duration: document.getElementById('postDuration').value,
-                    category: document.getElementById('postCategory').value,
-                    date: today,
-                    featured: true,
-                    views: 0,
-                    badge: document.getElementById('videoBadge').value
-                };
-            }
-            
-            const code = `,
-    ${JSON.stringify(post, null, 8).replace(/^/gm, '    ').trim()}`;
-            
-            document.getElementById('generatedCode').textContent = code;
-            document.getElementById('codeOutput').classList.add('show');
-            document.getElementById('codeOutput').scrollIntoView({ behavior: 'smooth' });
-        });
+        return false;
+    }
+    
+    function copyCode() {
+        var code = document.getElementById('generatedCode').textContent;
+        navigator.clipboard.writeText(code);
         
-        // Copy Code
-        function copyCode() {
-            const code = document.getElementById('generatedCode').textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                const btn = document.querySelector('.copy-btn');
-                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                setTimeout(() => btn.innerHTML = '<i class="fas fa-copy"></i> Copy', 2000);
-            });
-        }
-    </script>
+        var btn = document.querySelector('.copy-btn');
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(function() {
+            btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+        }, 2000);
+    }
+</script>
 </body>
 </html>
