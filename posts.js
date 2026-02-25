@@ -1,8 +1,7 @@
 // ===== DANISH TECH - POSTS DATABASE =====
-// Supports: software, video, image, document
+// This file contains all your posts
 
-const postsData = [
-    // Software Post
+var postsData = [
     {
         id: 1,
         type: "software",
@@ -18,21 +17,14 @@ const postsData = [
         featured: true,
         downloads: 15420,
         badge: "POPULAR"
-    }
-          
-    // ===== VIDEO POST EXAMPLE =====
-    // Uncomment and modify to add video posts:
-    /*
-    ,
+    },
     {
         id: 2,
         type: "video",
         title: "How to Install Safe Exam Browser",
-        description: "Complete tutorial on how to download and install Safe Exam Browser on Windows. Step by step guide for beginners.",
+        description: "Complete step-by-step tutorial showing how to download and install Safe Exam Browser on Windows. Perfect for students and teachers.",
         image: "https://i0.wp.com/teltales.port.ac.uk/wp-content/uploads/2017/07/SEB.png?fit=676%2C451&ssl=1",
         videoUrl: "https://www.youtube.com/watch?v=UgOizAhudsk",
-        // OR for Vimeo: "https://vimeo.com/123456789"
-        // OR for direct video: "https://example.com/video.mp4"
         duration: "10:25",
         category: "Tutorial",
         date: "2024-01-16",
@@ -40,47 +32,7 @@ const postsData = [
         views: 5430,
         badge: "NEW"
     }
-    */
-    
-    // ===== HOW TO ADD POSTS =====
-    
-    // FOR SOFTWARE:
-    /*
-    ,
-    {
-        id: [next number],
-        type: "software",
-        title: "Software Name",
-        description: "Description...",
-        image: "thumbnail URL",
-        downloadUrl: "download link",
-        version: "1.0.0",
-        fileSize: "50 MB",
-        platform: "Windows",
-        category: "Category",
-        date: "YYYY-MM-DD",
-        featured: true,
-        downloads: 0,
-        badge: "NEW"
-    }
-    */
-    
-    // FOR VIDEO:
-    /*
-    ,
-    {
-        id: [next number],
-        type: "video",
-        title: "Video Title",
-        description: "Description...",
-        image: "thumbnail URL",
-        videoUrl: "YouTube/Vimeo/Direct URL",
-        duration: "MM:SS",
-        category: "Category",
-        date: "YYYY-MM-DD",
-        featured: true,
-        views: 0,
-        badge: "NEW"
-    }
-    */
 ];
+
+// ===== ADD NEW POSTS BELOW =====
+// Copy and paste from admin panel generated code here
