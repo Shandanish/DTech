@@ -3,74 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Software Hub - Free Downloads</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬇️</text></svg>"> <!-- Simple download icon favicon -->
+    <title>🚀 Danish Software Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Tailwind CSS (via CDN for simplicity) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬇️</text></svg>">
 </head>
-<body>
-    <header>
-        <h1>🚀 My Software Hub</h1>
-        <p>Download your favorite tools and applications - All for free!</p>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-600 to-indigo-700 p-6 text-center shadow-lg">
+        <h1 class="text-4xl font-bold mb-2">🚀 Ultimate Software Hub</h1>
+        <p class="text-indigo-200">Manage & share your tools with style!</p>
     </header>
 
-    <main>
-        <section class="software-grid">
-            
-            <!-- SOFTWARE ITEM 1 (Single File Example) -->
-            <div class="software-card">
-                <div class="icon">📄</div>
-                <h2>Awesome Tool v1.0</h2>
-                <p>A powerful utility for boosting productivity. Simple executable file.</p>
-                <div class="download-area">
-                    <a href="software/awesome-tool.exe" class="download-btn">Download (.exe)</a>
-                    <span class="file-size">5.2 MB</span>
-                </div>
+    <main class="flex-grow container mx-auto px-4 py-8">
+        
+        <!-- ADMIN MANAGER SECTION (Visible only to you, the repo owner) -->
+        <section id="admin-section" class="mb-12 p-6 bg-gray-800 rounded-xl shadow-xl border border-indigo-500/30">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-300 border-b border-indigo-500/30 pb-2">🔧 Admin Manager (Drag, Drop & Publish)</h2>
+            <p class="text-gray-400 text-sm mb-6">Use this section to add new software. Drag files, fill details, click Publish. GitHub Actions handles the rest!</p>
+
+            <!-- Drag & Drop Zone -->
+            <div id="drop-zone" class="border-2 border-dashed border-indigo-400 rounded-lg p-8 text-center mb-6 bg-gray-700/50 hover:bg-gray-700 transition cursor-pointer">
+                <p class="text-xl mb-2">📦 Drag & Drop Software Files Here (.zip, .exe, .dmg, etc.)</p>
+                <p class="text-gray-400 text-sm">or click to select files</p>
+                <input type="file" id="file-input" class="hidden" multiple accept=".zip,.exe,.dmg,.tar.gz,.pdf,.doc,.docx">
+                <div id="file-list" class="mt-4 text-left text-sm text-gray-300"></div>
             </div>
 
-            <!-- SOFTWARE ITEM 2 (Zipped Folder Example - THIS IS KEY!) -->
-            <div class="software-card">
-                <div class="icon">📦</div>
-                <h2>Project Suite Alpha</h2>
-                <p>Complete suite of scripts and tools. **Download as a single ZIP file.**</p>
-                <div class="download-area">
-                    <!-- LINK POINTS TO THE .zip FILE YOU WILL CREATE -->
-                    <a href="software/project-suite-alpha.zip" class="download-btn">Download (.zip)</a>
-                    <span class="file-size">12.8 MB</span>
+            <!-- Software Info Form -->
+            <form id="software-form" class="space-y-4 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-indigo-200 mb-1">Software Name *</label>
+                        <input type="text" id="sw-name" required class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-indigo-200 mb-1">Version *</label>
+                        <input type="text" id="sw-version" required class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500">
+                    </div>
                 </div>
-            </div>
-
-            <!-- SOFTWARE ITEM 3 (Another Example) -->
-            <div class="software-card">
-                <div class="icon">🧩</div>
-                <h2>Cool Library v2.1</h2>
-                <p>Header files and documentation for developers. Essential for integration.</p>
-                <div class="download-area">
-                    <a href="software/cool-library.zip" class="download-btn">Download (.zip)</a>
-                    <span class="file-size">3.5 MB</span>
+                <div>
+                    <label class="block text-sm font-medium text-indigo-200 mb-1">Short Description *</label>
+                    <textarea id="sw-desc" rows="2" required class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500"></textarea>
                 </div>
-            </div>
-
-            <!-- ADD MORE CARDS BY COPYING/PASTING THIS BLOCK -->
-            <!--
-            <div class="software-card">
-                <div class="icon">🎨</div>
-                <h2>Your New Software Name</h2>
-                <p>Brief description here.</p>
-                <div class="download-area">
-                    <a href="software/your-file.zip" class="download-btn">Download (.zip)</a>
-                    <span class="file-size">X.X MB</span>
+                <div>
+                    <label class="block text-sm font-medium text-indigo-200 mb-1">Image URL (Screenshot/Icon) - Optional</label>
+                    <input type="url" id="sw-image" placeholder="https://i.imgur.com/..." class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500">
+                    <p class="text-xs text-gray-500 mt-1">Upload to Imgur/ImgBB and paste URL here, or leave blank.</p>
                 </div>
-            </div>
-            -->
+                <div>
+                    <label class="block text-sm font-medium text-indigo-200 mb-1">Category (e.g., Utility, Game, DevTool)</label>
+                    <input type="text" id="sw-category" class="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </form>
 
+            <!-- Preview & Publish -->
+            <div class="flex flex-wrap gap-4">
+                <button type="button" id="preview-btn" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-semibold transition shadow-md">👁️ Preview Card</button>
+                <button type="button" id="publish-btn" class="px-6 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition shadow-md flex items-center">🚀 Publish to GitHub Release</button>
+            </div>
+            <div id="preview-area" class="mt-6 p-4 bg-gray-700 rounded-lg border border-indigo-500/30 hidden"></div>
+            <div id="publish-status" class="mt-4 text-center"></div>
         </section>
+
+        <!-- PUBLIC DOWNLOAD SECTION (Dynamic, Auto-Updates) -->
+        <section id="public-section">
+            <h2 class="text-3xl font-bold mb-8 text-center text-indigo-300">⬇️ Available Downloads</h2>
+            <div id="loading-downloads" class="text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500 mb-4"></div>
+                <p class="text-gray-400">Loading latest software from GitHub Releases...</p>
+            </div>
+            <div id="downloads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Download cards will be injected here by JavaScript -->
+            </div>
+            <div id="no-downloads" class="hidden text-center py-12 text-gray-500">
+                <p>No software releases found yet. Use the Admin Manager to publish!</p>
+            </div>
+        </section>
+
     </main>
 
-    <footer>
-        <p>© 2024 My Software Hub | Hosted for free on <a href="https://github.com" target="_blank">GitHub Pages</a></p>
-        <p>Visit the <a href="https://github.com/YOUR_USERNAME/YOUR_REPO_NAME" target="_blank">GitHub Repository</a> for source code & issues.</p>
+    <footer class="bg-gray-800 p-6 text-center text-gray-400 text-sm border-t border-gray-700">
+        <p>© 2024 Ultimate Software Hub | Powered by <a href="https://github.com" target="_blank" class="text-indigo-400 hover:underline">GitHub Pages & Actions</a></p>
+        <p class="mt-1">Repo: <a id="repo-link" href="#" target="_blank" class="text-indigo-400 hover:underline">YOUR_REPO_URL</a></p>
     </footer>
 
-    <script src="script.js"></script> <!-- Optional: For basic interactivity -->
+    <script src="script.js"></script>
 </body>
 </html>
