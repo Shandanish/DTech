@@ -7,10 +7,9 @@
     <meta name="description" content="Danish Tech Hub - Download premium software and watch tutorials for free.">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
 </head>
 <body>
-    <!-- Cyberpunk Background -->
+    <!-- Background -->
     <div class="cyber-bg">
         <div class="grid-lines"></div>
         <div class="glow-orb orb-1"></div>
@@ -19,7 +18,7 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
                 <div class="logo-icon">
@@ -32,7 +31,7 @@
             </a>
             
             <div class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link active">
+                <a href="#home" class="nav-link active">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
@@ -51,10 +50,10 @@
             </div>
 
             <div class="nav-actions">
-                <button class="search-btn" id="searchBtn">
+                <button class="search-btn" onclick="openSearch()">
                     <i class="fas fa-search"></i>
                 </button>
-                <button class="menu-toggle" id="menuToggle">
+                <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -69,7 +68,7 @@
                 <span>TRUSTED PLATFORM</span>
             </div>
             <h1 class="hero-title">
-                <span class="glitch" data-text="DANISH">DANISH</span>
+                <span class="glitch">DANISH</span>
                 <span class="gradient-text">TECH HUB</span>
             </h1>
             <p class="hero-subtitle">
@@ -101,39 +100,26 @@
                 </div>
             </div>
         </div>
-        <div class="hero-visual">
-            <div class="tech-circle">
-                <div class="circle-ring ring-1"></div>
-                <div class="circle-ring ring-2"></div>
-                <div class="circle-ring ring-3"></div>
-                <div class="circle-core">
-                    <i class="fas fa-microchip"></i>
-                </div>
-            </div>
-        </div>
     </header>
 
-    <!-- Filter Tabs -->
+    <!-- Filter Section -->
     <section class="filter-section">
         <div class="container">
-            <div class="filter-tabs">
-                <button class="filter-tab active" data-filter="all">
-                    <i class="fas fa-th"></i>
-                    All
+            <div class="filter-tabs" id="filterTabs">
+                <button class="filter-tab active" onclick="filterPosts('all')">
+                    <i class="fas fa-th"></i> All
                 </button>
-                <button class="filter-tab" data-filter="software">
-                    <i class="fas fa-download"></i>
-                    Software
+                <button class="filter-tab" onclick="filterPosts('software')">
+                    <i class="fas fa-download"></i> Software
                 </button>
-                <button class="filter-tab" data-filter="video">
-                    <i class="fas fa-play"></i>
-                    Videos
+                <button class="filter-tab" onclick="filterPosts('video')">
+                    <i class="fas fa-play"></i> Videos
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- Main Content Grid -->
+    <!-- Downloads Section -->
     <section class="content-section" id="downloads">
         <div class="container">
             <div class="section-header">
@@ -142,11 +128,15 @@
                     <span>FEATURED</span>
                 </div>
                 <h2 class="section-title">Latest Content</h2>
-                <p class="section-subtitle">Software downloads and video tutorials - all in one place</p>
+                <p class="section-subtitle">Software downloads and video tutorials</p>
             </div>
 
             <div class="content-grid" id="contentGrid">
-                <!-- Posts loaded from posts.js -->
+                <!-- Posts will be loaded here -->
+                <div class="loading-message">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading content...</p>
+                </div>
             </div>
         </div>
     </section>
@@ -156,13 +146,13 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">
-                    <i class="fas fa-play-circle" style="color: var(--neon-pink);"></i>
+                    <i class="fas fa-play-circle" style="color: #ff00e4;"></i>
                     Video Tutorials
                 </h2>
                 <p class="section-subtitle">Watch and learn with our video guides</p>
             </div>
             <div class="videos-grid" id="videosGrid">
-                <!-- Videos loaded from posts.js -->
+                <!-- Videos will be loaded here -->
             </div>
         </div>
     </section>
@@ -172,11 +162,10 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Why Choose Danish Tech?</h2>
-                <p class="section-subtitle">We provide the best experience</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">
+                    <div class="feature-icon cyan">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>Secure Downloads</h3>
@@ -198,7 +187,7 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon orange">
-                        <i class="fas fa-hand-holding-heart"></i>
+                        <i class="fas fa-heart"></i>
                     </div>
                     <h3>Free Forever</h3>
                     <p>Everything is completely free, no hidden fees.</p>
@@ -217,87 +206,75 @@
                         <span>DANISH TECH</span>
                     </a>
                     <p>Danish Tech Hub - Your trusted source for downloads and tutorials.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                    </div>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <a href="#home">Home</a>
                     <a href="#downloads">Downloads</a>
                     <a href="#videos">Videos</a>
-                    <a href="#about">About</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Admin</h4>
                     <a href="admin.html">Admin Panel</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2024 Danish Tech Hub. All rights reserved. Made with ❤️</p>
+                <p>© 2024 Danish Tech Hub. Made with ❤️</p>
             </div>
         </div>
     </footer>
 
     <!-- Download Modal -->
-    <div class="download-modal" id="downloadModal">
+    <div class="modal" id="downloadModal">
         <div class="modal-backdrop" onclick="closeDownloadModal()"></div>
         <div class="modal-box">
-            <div class="modal-icon downloading">
+            <button class="modal-close" onclick="closeDownloadModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-icon">
                 <i class="fas fa-download"></i>
             </div>
             <h3>Starting Download...</h3>
-            <p class="modal-message">Your download will begin automatically</p>
-            <div class="progress-container">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-                <span class="progress-text" id="progressText">Preparing...</span>
+            <p>Your download will begin automatically</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
             </div>
-            <p class="modal-note">If download doesn't start, <a href="#" id="manualDownload">click here</a></p>
-            <button class="modal-close-btn" onclick="closeDownloadModal()">
-                <i class="fas fa-times"></i>
-            </button>
+            <p class="progress-text" id="progressText">Preparing...</p>
+            <p class="modal-link">
+                If download doesn't start, <a href="#" id="manualDownload" target="_blank">click here</a>
+            </p>
         </div>
     </div>
 
-    <!-- Video Player Modal -->
-    <div class="video-modal" id="videoModal">
-        <div class="video-backdrop" onclick="closeVideoModal()"></div>
-        <div class="video-container">
-            <button class="video-close-btn" onclick="closeVideoModal()">
+    <!-- Video Modal -->
+    <div class="modal" id="videoModal">
+        <div class="modal-backdrop" onclick="closeVideoModal()"></div>
+        <div class="video-modal-box">
+            <button class="modal-close" onclick="closeVideoModal()">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="video-header">
-                <h3 id="videoTitle">Video Title</h3>
+            <div class="video-title" id="videoModalTitle">Video Title</div>
+            <div class="video-player" id="videoPlayer">
+                <!-- Video will be embedded here -->
             </div>
-            <div class="video-wrapper" id="videoWrapper">
-                <!-- Video iframe/element will be inserted here -->
-            </div>
-            <div class="video-info">
-                <p id="videoDescription">Video description...</p>
-            </div>
+            <div class="video-description" id="videoModalDesc">Video description</div>
         </div>
     </div>
 
     <!-- Search Modal -->
-    <div class="search-modal" id="searchModal">
-        <div class="search-backdrop" onclick="closeSearch()"></div>
-        <div class="search-box">
-            <button class="search-close" onclick="closeSearch()">
+    <div class="modal" id="searchModal">
+        <div class="modal-backdrop" onclick="closeSearch()"></div>
+        <div class="search-modal-box">
+            <button class="modal-close" onclick="closeSearch()">
                 <i class="fas fa-times"></i>
             </button>
             <h2>Search Content</h2>
-            <div class="search-input-container">
+            <div class="search-input-box">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search software, videos...">
+                <input type="text" id="searchInput" placeholder="Search..." oninput="searchContent()">
             </div>
             <div class="search-results" id="searchResults"></div>
         </div>
     </div>
 
+    <!-- Load posts.js first, then script.js -->
     <script src="posts.js"></script>
     <script src="script.js"></script>
 </body>
