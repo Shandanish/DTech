@@ -1,153 +1,47 @@
-/* style.css - Modern, Responsive Design */
-:root {
-    --primary-color: #2a7fff;
-    --primary-hover: #1a6aea;
-    --bg-color: #f4f7f9;
-    --card-bg: #ffffff;
-    --text-color: #333;
-    --text-light: #666;
-    --border-radius: 12px;
-    --box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    --transition: all 0.3s ease;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* style.css - Custom Enhancements & Fixes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    padding-bottom: 40px; /* Space for footer */
+    font-family: 'Inter', sans-serif;
+    background-color: #111827; /* Fallback */
+    color: #f9fafb;
 }
 
-header {
-    background: linear-gradient(135deg, var(--primary-color), #6a11cb);
-    color: white;
-    text-align: center;
-    padding: 60px 20px;
-    margin-bottom: 40px;
-    box-shadow: var(--box-shadow);
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+::-webkit-scrollbar-thumb {
+    background: #4f46e5;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #6366f1;
 }
 
-header h1 {
-    font-size: 2.8rem;
-    margin-bottom: 10px;
+/* Drag & Drop Zone Active State */
+.drag-over {
+    background-color: #4f46e5 !important;
+    border-color: #818cf8 !important;
+    transform: scale(1.02);
 }
 
-header p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-}
-
-main {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.software-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
+/* Software Card Hover Effect */
 .software-card {
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    padding: 25px;
-    box-shadow: var(--box-shadow);
-    transition: var(--transition);
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #eee;
+    transition: all 0.3s ease;
+    background: linear-gradient(145deg, #1e293b, #1e1b4b);
+    border: 1px solid rgba(99, 102, 241, 0.2);
 }
-
 .software-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.3), 0 8px 10px -6px rgba(79, 70, 229, 0.1);
+    border-color: rgba(99, 102, 241, 0.5);
 }
 
-.icon {
-    font-size: 3rem;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.software-card h2 {
-    color: var(--primary-color);
-    margin-bottom: 12px;
-    font-size: 1.5rem;
-}
-
-.software-card p {
-    color: var(--text-light);
-    margin-bottom: 25px;
-    flex-grow: 1; /* Pushes download area down */
-}
-
-.download-area {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-    border-top: 1px solid #eee;
-    padding-top: 15px;
-}
-
-.download-btn {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    transition: var(--transition);
-    text-align: center;
-    flex-grow: 1;
-    margin-right: 10px;
-}
-
-.download-btn:hover {
-    background-color: var(--primary-hover);
-    color: white;
-    text-decoration: none;
-}
-
-.file-size {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    white-space: nowrap;
-}
-
-footer {
-    text-align: center;
-    margin-top: 60px;
-    padding: 30px 20px;
-    border-top: 1px solid #ddd;
-    color: var(--text-light);
-    font-size: 0.9rem;
-}
-
-footer a {
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-/* Responsive Tweaks */
-@media (max-width: 600px) {
-    header h1 { font-size: 2rem; }
-    .software-grid { grid-template-columns: 1fr; }
-    .download-area { flex-direction: column; gap: 10px; align-items: stretch; }
-    .download-btn { margin-right: 0; margin-bottom: 5px; }
-    .file-size { text-align: center; }
+/* Button Shine Effect */
+button:active {
+    transform: scale(0.98);
 }
