@@ -14,7 +14,7 @@ window.postsData = [
     downloads: "15.4K"
   },
   {
-    id: 3,
+    id: 2,
     type: "video",
     title: "Safe Exam Browser Tutorial",
     description: "Complete guide: How to install and use Safe Exam Browser for online exams. Step-by-step instructions.",
