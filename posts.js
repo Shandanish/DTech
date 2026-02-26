@@ -22,7 +22,8 @@ window.postsData = [
     videoUrl: "https://www.youtube.com/watch?v=UgOizAhudsk",
     duration: "5:32",
     views: "8.2K"
-  }
+  },
+  {
      id: 2,
     type: "software",
     title: "Safe Exam Browser Stable version",
